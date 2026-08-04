@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://c3qpbyxathvff"]
+
+[ext_resource type="Shader" uid="uid://t5bsww3kcsgj" path="res://Assets/Scriptes/Shaders/BackgroundShader.gdshader" id="1_dpw2a"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iu1ou"]
+shader = ExtResource("1_dpw2a")
+shader_parameter/bias = 0.30000000447036
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_chbte"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fwv7w"]
+width = 490
+height = 490
+noise = SubResource("FastNoiseLite_chbte")
+
+[node name="Sprite2D" type="Sprite2D" unique_id=1914853639]
+material = SubResource("ShaderMaterial_iu1ou")
+position = Vector2(373, 322)
+texture = SubResource("NoiseTexture2D_fwv7w")
