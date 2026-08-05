@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c3qpbyxathvff" path="res://Assets/Prefabs/Background.tscn" id="1_ctymt"]
 [ext_resource type="PackedScene" uid="uid://h04n8we4jhrv" path="res://Assets/Prefabs/Path.tscn" id="2_8kw0n"]
+[ext_resource type="PackedScene" uid="uid://dprnryigdvxf2" path="res://Assets/Prefabs/PathNode.tscn" id="3_yn0lr"]
 
 [node name="Level" type="Node2D" unique_id=596881720]
 
@@ -14,7 +15,7 @@ position = Vector2(373, 322)
 width = 20.0
 default_color = Color(0.16470589, 0.15686275, 0.019607844, 1)
 
-[node name="Start" type="Node2D" parent="Path" unique_id=53188932]
+[node name="Start" parent="Path" unique_id=1095800925 instance=ExtResource("3_yn0lr")]
 position = Vector2(0, 245)
 
 [node name="End" type="Node2D" parent="Path" unique_id=599039825]
