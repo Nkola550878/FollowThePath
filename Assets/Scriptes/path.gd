@@ -60,8 +60,8 @@ func FoldPaper(k, n) -> void:
 
 func Mirror(point, k, n) -> Vector2:
 	var temp : Vector2;
-	temp.x = (point.x * k + 2 * point.y * k - 2 * n * k - point.x) / (1 + k);
-	temp.y = (2 * point.x * k + 2 * n + point.y * k - point.y) / (1 + k);
+	temp.x = k * point.y - k * n;
+	temp.y = k * point.x + n;
 	return temp;
 
 func WorldToGrid(pos) -> Vector2:
