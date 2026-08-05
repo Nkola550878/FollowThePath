@@ -28,12 +28,12 @@ func _process(delta: float) -> void:
 		or (currentClick - lastClick).x + (currentClick - lastClick).y == 0):
 			var k = (lastClick.y - currentClick.y) / (lastClick.x - currentClick.x);
 			var n = (lastClick.x * currentClick.y - currentClick.x * lastClick.y) / (lastClick.x - currentClick.x);
-			Mirror(k, n);
-			#insert cutting code
+			FoldPaper(k, n);
+			DrawPath();
 			pass
 		lastClick = currentClick;
 
-func Mirror(k, n) -> void:
+func FoldPaper(k, n) -> void:
 	var i : int = 1;
 	while (i < self.get_child_count() - 1):
 		var child1GridPos = WorldToGrid(self.get_child(i).global_position);
@@ -51,10 +51,18 @@ func Mirror(k, n) -> void:
 			instance.position = GridToWorld(intersection);
 			add_child(instance);
 			move_child(instance, i + 1);
-			print(intersection);
+			if(child1GridPos.y - k * child1GridPos.x - n > child2GridPos.y - k * child2GridPos.x - n):
+				self.get_child(i).position = GridToWorld(Mirror(child1GridPos, k, n));
+				pass
 		if (child1GridPos.y == child2GridPos.y):
 			print("y");
 		i += 1;
+
+func Mirror(point, k, n) -> Vector2:
+	var temp : Vector2;
+	temp.x = (point.x * k + 2 * point.y * k - 2 * n * k - point.x) / (1 + k);
+	temp.y = (2 * point.x * k + 2 * n + point.y * k - point.y) / (1 + k);
+	return temp;
 
 func WorldToGrid(pos) -> Vector2:
 	return (pos + (size / 2) - position) / tileSize;
