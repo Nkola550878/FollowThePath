@@ -42,10 +42,13 @@ func Mirror(k, n) -> void:
 		if (child1GridPos == child2GridPos):
 			i += 1;
 			continue;
+		if (child1GridPos.y == k * child1GridPos.x + n):
+			i += 1;
+			continue;
 		if (child1GridPos.x == child2GridPos.x):
 			intersection = Vector2(child1GridPos.x, k * child1GridPos.x + n);
 			var instance = pathNode.instantiate();
-			instance.position = intersection;
+			instance.position = GridToWorld(intersection);
 			add_child(instance);
 			move_child(instance, i + 1);
 			print(intersection);
@@ -54,15 +57,10 @@ func Mirror(k, n) -> void:
 		i += 1;
 
 func WorldToGrid(pos) -> Vector2:
-	pos -= position;
-	pos += size / 2;
-	pos = pos.round();
-	return pos / tileSize;
+	return (pos + (size / 2) - position) / tileSize;
 
 func GridToWorld(pos) -> Vector2:
-	pos = pos * tileSize;
-	return Vector2(0, 0);
-	pass;
+	return pos * tileSize - (size / 2);
 
 func MouseGridPosition() -> Vector2i:
 	var mousePosition : Vector2 = get_viewport().get_mouse_position();
