@@ -30,33 +30,110 @@ func _process(delta: float) -> void:
 			var n = (lastClick.x * currentClick.y - currentClick.x * lastClick.y) / (lastClick.x - currentClick.x);
 			FoldPaper(k, n);
 			DrawPath();
-			pass
+			lastClick = Vector2i(100, 0);
+			currentClick = Vector2i(100, 0);
 		lastClick = currentClick;
 
 func FoldPaper(k, n) -> void:
 	var i : int = 1;
+	var didInside : bool = false;
+	var intersection1 : Vector2 = Vector2(-100, -100);
+	var intersection2 : Vector2 = Vector2(-100, -100);
+	var intersectionIndex1 : int = -1;
+	var intersectionIndex2 : int = -1;
 	while (i < self.get_child_count() - 1):
 		var child1GridPos = WorldToGrid(self.get_child(i).global_position);
 		var child2GridPos = WorldToGrid(self.get_child(i + 1).global_position);
-		var intersection : Vector2;
-		if (child1GridPos == child2GridPos):
+		if (intersection1 == Vector2(-100, -100)):
+			intersection1 = FindIntersection(child1GridPos, child2GridPos, k, n);
+			if (intersection1 != Vector2(-100, -100)):
+				intersectionIndex1 = i;
 			i += 1;
 			continue;
-		if (child1GridPos.y == k * child1GridPos.x + n):
-			i += 1;
-			continue;
-		if (child1GridPos.x == child2GridPos.x):
-			intersection = Vector2(child1GridPos.x, k * child1GridPos.x + n);
-			var instance = pathNode.instantiate();
-			instance.position = GridToWorld(intersection);
-			add_child(instance);
-			move_child(instance, i + 1);
-			if(child1GridPos.y - k * child1GridPos.x - n > child2GridPos.y - k * child2GridPos.x - n):
-				self.get_child(i).position = GridToWorld(Mirror(child1GridPos, k, n));
-				pass
-		if (child1GridPos.y == child2GridPos.y):
-			print("y");
+		if (intersection2 == Vector2(-100, -100)):
+			intersection2 = FindIntersection(child1GridPos, child2GridPos, k, n);
+			if (intersection2 == Vector2(-100, -100)):
+				i += 1;
+				continue;
+			intersectionIndex2 = i;
+		if (intersectionIndex1 != -1 and intersectionIndex2 != -1):
+			didInside = true;
+			AddIntersectionPoint(intersection1, intersectionIndex1);
+			AddIntersectionPoint(intersection2, intersectionIndex2 + 1);
+			intersectionIndex1 += 1;
+			intersectionIndex2 += 2;
+			for i2 in range(intersectionIndex1, intersectionIndex2):
+				var gridPosition = WorldToGrid(self.get_child(i2).global_position);
+				gridPosition = Mirror(gridPosition, k, n);
+				self.get_child(i2).position = GridToWorld(gridPosition);
+			intersection1 = intersection2;
+			intersection2 = Vector2(-100, -100);
+			intersectionIndex1 = intersectionIndex2;
+			intersectionIndex2 = -1;
 		i += 1;
+	if ((intersectionIndex1 != -1) and (not didInside)):
+		AddIntersectionPoint(intersection1, intersectionIndex1);
+		intersectionIndex1 += 1;
+		for i2 in range(intersectionIndex1, self.get_child_count()):
+			var gridPosition = WorldToGrid(self.get_child(i2).global_position);
+			gridPosition = Mirror(gridPosition, k, n);
+			self.get_child(i2).position = GridToWorld(gridPosition);
+		#var child1GridPos = WorldToGrid(self.get_child(i).global_position);
+		#var child2GridPos = WorldToGrid(self.get_child(i + 1).global_position);
+		#var intersection : Vector2;
+		#if (child1GridPos == child2GridPos):
+			#i += 1;
+			#continue;
+		#if (child1GridPos.y == k * child1GridPos.x + n):
+			#i += 1;
+			#continue;
+		#if (child2GridPos.y == k * child2GridPos.x + n):
+			#i += 1;
+			#continue;
+		#if (child1GridPos.x == child2GridPos.x):
+			#intersection = Vector2(child1GridPos.x, k * child1GridPos.x + n);
+			#var instance = pathNode.instantiate();
+			#instance.position = GridToWorld(intersection);
+			#add_child(instance);
+			#move_child(instance, i + 1);
+			#if(child1GridPos.y - k * child1GridPos.x - n > child2GridPos.y - k * child2GridPos.x - n):
+				#self.get_child(i).position = GridToWorld(Mirror(child1GridPos, k, n));
+			#if(child1GridPos.y - k * child1GridPos.x - n < child2GridPos.y - k * child2GridPos.x - n):
+				#self.get_child(i + 2).position = GridToWorld(Mirror(child2GridPos, k, n));
+		#if (child1GridPos.y == child2GridPos.y):
+			#intersection = Vector2(child1GridPos.y * k2 + n2, child1GridPos.y);
+			#var instance = pathNode.instantiate();
+			#instance.position = GridToWorld(intersection);
+			#add_child(instance);
+			#move_child(instance, i + 1);
+			#if(child1GridPos.y - k * child1GridPos.x - n > child2GridPos.y - k * child2GridPos.x - n):
+				#self.get_child(i).position = GridToWorld(Mirror(child1GridPos, k, n));
+			#if(child1GridPos.y - k * child1GridPos.x - n < child2GridPos.y - k * child2GridPos.x - n):
+				#self.get_child(i + 2).position = GridToWorld(Mirror(child2GridPos, k, n));
+			#print("y" + str(intersection));
+		#i += 1;
+
+func AddIntersectionPoint(intersection, intersectionIndex):
+	var instance = pathNode.instantiate();
+	instance.position = GridToWorld(intersection);
+	add_child(instance);
+	move_child(instance, intersectionIndex + 1);
+
+func FindIntersection(child1GridPos, child2GridPos, k, n) -> Vector2:
+	var intersection : Vector2;
+	var k2 = 1 / k;
+	var n2 = -n / k;
+	if (child1GridPos.x == child2GridPos.x):
+		intersection = Vector2(child1GridPos.x, k * child1GridPos.x + n);
+		if ((intersection.y > child1GridPos.y or intersection.y < child2GridPos.y) and (intersection.y > child2GridPos.y or intersection.y < child1GridPos.y)):
+			return Vector2(-100, -100);
+	if (child1GridPos.y == child2GridPos.y):
+		intersection = Vector2(child1GridPos.y * k2 + n2, child1GridPos.y);
+		if ((intersection.x > child1GridPos.x or intersection.x < child2GridPos.x) and (intersection.x > child2GridPos.x or intersection.x < child1GridPos.x)):
+			return Vector2(-100, -100);
+	if ((intersection == child1GridPos) or (intersection == child2GridPos)):
+		return Vector2(-100, -100);
+	return intersection;
 
 func Mirror(point, k, n) -> Vector2:
 	var temp : Vector2;
@@ -74,4 +151,3 @@ func MouseGridPosition() -> Vector2i:
 	var mousePosition : Vector2 = get_viewport().get_mouse_position();
 	var gridPosition = WorldToGrid(mousePosition).round()
 	return gridPosition
-	pass;
