@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://h04n8we4jhrv"]
 
-[ext_resource type="Script" uid="uid://d324g3xl5che" path="res://Assets/Scriptes/path.gd" id="1_tu0xs"]
+[ext_resource type="Script" uid="uid://d324g3xl5che" path="res://Assets/Scriptes/Path.gd" id="1_tu0xs"]
 [ext_resource type="PackedScene" uid="uid://dprnryigdvxf2" path="res://Assets/Prefabs/PathNode.tscn" id="2_rlilv"]
 
 [node name="Path" type="Node2D" unique_id=1854861914]

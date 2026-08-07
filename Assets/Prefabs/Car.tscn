@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://fstbwv0yb3ep"]
+
+[ext_resource type="Texture2D" uid="uid://bo8sngth3lawn" path="res://Assets/Sprites/Pixel.png" id="1_xpvko"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fwv7w"]
+size = Vector2(16, 16)
+
+[node name="Car" type="CharacterBody2D" unique_id=539715305]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=457928084]
+shape = SubResource("RectangleShape2D_fwv7w")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=283044906]
+texture = ExtResource("1_xpvko")

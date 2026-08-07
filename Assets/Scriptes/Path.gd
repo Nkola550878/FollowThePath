@@ -57,7 +57,7 @@ func FoldPaper(k, n) -> void:
 				continue;
 			intersectionIndex2 = i;
 		if (intersectionIndex1 != -1 and intersectionIndex2 != -1):
-			didInside = true;
+			didInside = !didInside;
 			AddIntersectionPoint(intersection1, intersectionIndex1);
 			AddIntersectionPoint(intersection2, intersectionIndex2 + 1);
 			intersectionIndex1 += 1;
