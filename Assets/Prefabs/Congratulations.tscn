@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://c3doflxeoetho"]
+
+[ext_resource type="Script" uid="uid://da37kx4ewx1yi" path="res://Assets/Scriptes/ButtonScript.gd" id="1_vm4ag"]
+
+[node name="Control" type="Control" unique_id=512827469]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=636833768]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 347.0
+offset_top = 45.0
+offset_right = -347.0
+offset_bottom = -45.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="GridContainer" unique_id=484728065]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 50
+text = "Congratulations"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GridContainer" unique_id=571184078]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="Button" type="Button" parent="GridContainer/HBoxContainer" unique_id=1841640392]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 30
+text = "Restart"
+script = ExtResource("1_vm4ag")
+
+[node name="Button2" type="Button" parent="GridContainer/HBoxContainer" unique_id=2133375801]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 30
+text = "Next
+"
+script = ExtResource("1_vm4ag")
+
+[connection signal="button_down" from="GridContainer/HBoxContainer/Button" to="GridContainer/HBoxContainer/Button" method="restart_button"]
+[connection signal="button_down" from="GridContainer/HBoxContainer/Button2" to="GridContainer/HBoxContainer/Button" method="next_button"]

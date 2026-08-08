@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://ctq3vi12l8aym"]
 
 [ext_resource type="Script" uid="uid://drxh7odbg7hca" path="res://Assets/Scriptes/GameManager.gd" id="1_8xgfs"]
+[ext_resource type="PackedScene" uid="uid://c3doflxeoetho" path="res://Assets/Prefabs/Congratulations.tscn" id="2_wqlsp"]
 
 [node name="GameManager" type="Node2D" unique_id=6241875]
 script = ExtResource("1_8xgfs")
+congratulations = ExtResource("2_wqlsp")

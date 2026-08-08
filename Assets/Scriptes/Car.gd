@@ -30,7 +30,7 @@ func _process(delta: float) -> void:
 		if (global_position.distance_squared_to(endNode.global_position) < 0.1):
 			move = false;
 			if (PickUpParent.get_child_count() == 0):
-				GameManager.NextLevel();
+				GameManager.LoadCongratulationsScene();
 				#ADD WIN SCREEN
 				print("win");
 			else:
