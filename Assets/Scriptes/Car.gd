@@ -4,6 +4,7 @@ var move := false;
 var startPosition : Vector2;
 var nextNodeIndex : int = 1;
 
+var numbersOfPickUps : int;
 @export var PickUpParent : Node;
 @onready var path: Node2D = $"../Path"
 @onready var endNode: Node2D = $"../EndNode"
@@ -11,6 +12,7 @@ var nextNodeIndex : int = 1;
 
 func _ready() -> void:
 	startPosition = position;
+	numbersOfPickUps = PickUpParent.get_child_count();
 	pass;
 
 func _process(delta: float) -> void:
@@ -21,7 +23,7 @@ func _process(delta: float) -> void:
 			nextNodeIndex += 1;
 			if (nextNodeIndex == path.get_child_count()):
 				move = false;
-				GameManager.RestartLevel();
+				GameManager.LoadLostScene(numbersOfPickUps - PickUpParent.get_child_count(), 0);
 				print("lose");
 				#ADD LOSE SCREEN
 				return; 
@@ -30,9 +32,9 @@ func _process(delta: float) -> void:
 		if (global_position.distance_squared_to(endNode.global_position) < 0.1):
 			move = false;
 			if (PickUpParent.get_child_count() == 0):
-				GameManager.LoadCongratulationsScene();
+				GameManager.LoadCongratulationsScene(numbersOfPickUps);
 				#ADD WIN SCREEN
 				print("win");
 			else:
-				GameManager.RestartLevel();
+				GameManager.LoadLostScene(numbersOfPickUps - PickUpParent.get_child_count(), numbersOfPickUps);
 				print("you need to to pick up pickups");

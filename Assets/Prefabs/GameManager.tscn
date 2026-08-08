@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" uid="uid://drxh7odbg7hca" path="res://Assets/Scriptes/GameManager.gd" id="1_8xgfs"]
 [ext_resource type="PackedScene" uid="uid://c3doflxeoetho" path="res://Assets/Prefabs/Congratulations.tscn" id="2_wqlsp"]
+[ext_resource type="PackedScene" uid="uid://8yehvetr0uq6" path="res://Assets/Prefabs/Lost.tscn" id="3_s0wue"]
 
 [node name="GameManager" type="Node2D" unique_id=6241875]
 script = ExtResource("1_8xgfs")
 congratulations = ExtResource("2_wqlsp")
+lost = ExtResource("3_s0wue")
