@@ -17,7 +17,6 @@ func LoadCongratulationsScene(number):
 	var instance = congratulations.instantiate();
 	instance.size = Vector2(1152, 648);
 	instance.get_child(0).get_child(1).text = str(number) + "/" + str(number);
-	print(get_parent().get_child(1).position);
 	get_parent().get_child(1).add_child(instance);
 
 func LoadLostScene(pickedUp, number):
@@ -29,7 +28,6 @@ func LoadLostScene(pickedUp, number):
 	var instance = lost.instantiate();
 	instance.size = Vector2(1152, 648);
 	instance.get_child(0).get_child(1).text = text;
-	print(get_parent().get_child(1).position);
 	get_parent().get_child(1).add_child(instance);
 
 func NextLevel():
