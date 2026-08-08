@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bhvbljgsevauc"]
+
+[ext_resource type="Script" uid="uid://da37kx4ewx1yi" path="res://Assets/Scenes/ButtonScript.gd" id="1_yl63p"]
+
+[node name="Control" type="Control" unique_id=1422503195]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="." unique_id=709090847]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -69.0
+offset_top = 50.0
+offset_right = 69.0
+offset_bottom = 119.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 50
+text = "Menu"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="." unique_id=2017761871]
+layout_mode = 0
+offset_left = 126.0
+offset_top = 194.0
+offset_right = 176.0
+offset_bottom = 244.0
+theme_override_font_sizes/font_size = 30
+text = "1
+"
+script = ExtResource("1_yl63p")
+
+[connection signal="button_down" from="Button" to="Button" method="_on_button_down" binds= [1]]

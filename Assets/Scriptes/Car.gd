@@ -21,6 +21,7 @@ func _process(delta: float) -> void:
 			nextNodeIndex += 1;
 			if (nextNodeIndex == path.get_child_count()):
 				move = false;
+				GameManager.RestartLevel();
 				print("lose");
 				#ADD LOSE SCREEN
 				return; 
@@ -29,7 +30,9 @@ func _process(delta: float) -> void:
 		if (global_position.distance_squared_to(endNode.global_position) < 0.1):
 			move = false;
 			if (PickUpParent.get_child_count() == 0):
+				GameManager.NextLevel();
+				#ADD WIN SCREEN
 				print("win");
 			else:
+				GameManager.RestartLevel();
 				print("you need to to pick up pickups");
-			#ADD WIN SCREEN

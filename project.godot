@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="Follow the path"
-run/main_scene="uid://bnaehtp011d72"
+run/main_scene="uid://bhvbljgsevauc"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://Assets/Sprites/icon.svg"
+
+[autoload]
+
+GameManager="*uid://ctq3vi12l8aym"
 
 [display]
 
