@@ -74,8 +74,24 @@ theme_override_font_sizes/font_size = 30
 text = "5"
 script = ExtResource("1_yl63p")
 
+[node name="Button6" type="Button" parent="GridContainer/GridContainer" unique_id=61561059]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "6"
+script = ExtResource("1_yl63p")
+
+[node name="Button7" type="Button" parent="GridContainer/GridContainer" unique_id=1065676183]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "7"
+script = ExtResource("1_yl63p")
+
 [connection signal="button_down" from="GridContainer/GridContainer/Button" to="GridContainer/GridContainer/Button" method="_on_button_down" binds= [1]]
 [connection signal="button_down" from="GridContainer/GridContainer/Button2" to="GridContainer/GridContainer/Button2" method="_on_button_down" binds= [2]]
 [connection signal="button_down" from="GridContainer/GridContainer/Button3" to="GridContainer/GridContainer/Button3" method="_on_button_down" binds= [3]]
 [connection signal="button_down" from="GridContainer/GridContainer/Button4" to="GridContainer/GridContainer/Button4" method="_on_button_down" binds= [4]]
 [connection signal="button_down" from="GridContainer/GridContainer/Button5" to="GridContainer/GridContainer/Button5" method="_on_button_down" binds= [5]]
+[connection signal="button_down" from="GridContainer/GridContainer/Button6" to="GridContainer/GridContainer/Button6" method="_on_button_down" binds= [6]]
+[connection signal="button_down" from="GridContainer/GridContainer/Button7" to="GridContainer/GridContainer/Button7" method="_on_button_down" binds= [7]]

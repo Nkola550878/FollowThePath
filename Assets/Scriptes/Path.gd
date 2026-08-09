@@ -22,6 +22,10 @@ func DrawPath() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if (Input.is_action_just_pressed("Restart")):
+		GameManager.RestartLevel();
+	if (Input.is_action_just_pressed("Manu")):
+		GameManager.Manu();
 	if (Input.is_action_just_pressed("Select")):
 		var currentClick : Vector2i;
 		currentClick = MouseGridPosition();
@@ -31,16 +35,33 @@ func _process(delta: float) -> void:
 			var n = (lastClick.x * currentClick.y - currentClick.x * lastClick.y) / (lastClick.x - currentClick.x);
 			FoldPaper(k, n);
 			DrawPath();
+			#TryConnect();
 			call_deferred("TryConnect");
+			call_deferred("RemoveExtraVertices");
 			lastClick = Vector2i(100, 0);
 			currentClick = Vector2i(100, 0);
 		lastClick = currentClick;
+
+func RemoveExtraVertices():
+	var i = 2;
+	while (i  < self.get_child_count() - 1):
+		var child0 = self.get_child(i - 1);
+		var child1 = self.get_child(i);
+		var child2 = self.get_child(i + 1);
+		var diff1 = child0.position - child1.position;
+		var diff2 = child2.position - child1.position;
+		print(child1.name);
+		if(diff1.x * diff2.y - diff2.x * diff1.y == 0):
+			self.remove_child(child1);
+			print(child1.name);
+			continue;
+		i += 1;
+
 
 func TryConnect() -> void:
 	if (self != get_parent().get_child(0)):
 		return;
 	if (self.get_parent().get_child_count() == 1):
-		print("empty");
 		return;
 	if (get_child(-1).position == get_parent().get_child(1).get_child(-1).position && self != get_parent().get_child(1)):
 		Connect(self, self.get_parent().get_child(1), -1, -1);
@@ -48,11 +69,9 @@ func TryConnect() -> void:
 
 func Connect(object1, object2, index1, index2) -> void:
 	if(index2 == -1 and index1 == -1):
-		print("a");
 		for i in range(object2.get_child_count() - 2, 0, -1):
 			var temp = object2.get_child(i);
 			object2.get_child(i).reparent(object1);
-			print(temp.name);
 		object2.queue_free();
 
 func FoldPaper(k, n) -> void:
@@ -90,7 +109,6 @@ func FoldPaper(k, n) -> void:
 			intersectionIndex1 = intersectionIndex2;
 			intersectionIndex2 = -1;
 		i += 1;
-	print(get_child(-1).position, $"../../EndNode".position);
 	if ((intersectionIndex1 != -1) and (get_child(-1).global_position != $"../../EndNode".global_position)):
 		AddIntersectionPoint(intersection1, intersectionIndex1);
 		intersectionIndex1 += 1;
