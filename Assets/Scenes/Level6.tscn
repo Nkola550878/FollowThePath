@@ -1,27 +1,27 @@
-[gd_scene format=3 uid="uid://dqom0gomnq5st"]
+[gd_scene format=3 uid="uid://dg1rraxe7hpxw"]
 
-[ext_resource type="PackedScene" uid="uid://c3qpbyxathvff" path="res://Assets/Prefabs/Background.tscn" id="1_bu4qc"]
-[ext_resource type="PackedScene" uid="uid://h04n8we4jhrv" path="res://Assets/Prefabs/Path.tscn" id="2_61bn5"]
-[ext_resource type="PackedScene" uid="uid://dprnryigdvxf2" path="res://Assets/Prefabs/PathNode.tscn" id="3_ge380"]
-[ext_resource type="PackedScene" uid="uid://fstbwv0yb3ep" path="res://Assets/Prefabs/Car.tscn" id="4_wnuj7"]
-[ext_resource type="Script" uid="uid://c5ex1xmyt4il6" path="res://Assets/Scriptes/Car.gd" id="5_ici58"]
+[ext_resource type="PackedScene" uid="uid://c3qpbyxathvff" path="res://Assets/Prefabs/Background.tscn" id="1_ft2i0"]
+[ext_resource type="PackedScene" uid="uid://h04n8we4jhrv" path="res://Assets/Prefabs/Path.tscn" id="2_lgqtc"]
+[ext_resource type="PackedScene" uid="uid://dprnryigdvxf2" path="res://Assets/Prefabs/PathNode.tscn" id="3_mat1j"]
+[ext_resource type="PackedScene" uid="uid://fstbwv0yb3ep" path="res://Assets/Prefabs/Car.tscn" id="4_hx5fc"]
+[ext_resource type="Script" uid="uid://c5ex1xmyt4il6" path="res://Assets/Scriptes/Car.gd" id="5_qe0ow"]
 
 [node name="Level" type="Node2D" unique_id=596881720]
 
-[node name="Sprite2D" parent="." unique_id=1914853639 instance=ExtResource("1_bu4qc")]
+[node name="Sprite2D" parent="." unique_id=1914853639 instance=ExtResource("1_ft2i0")]
 
 [node name="PickUps" type="Node2D" parent="." unique_id=840667481]
 
 [node name="Node2D" type="Node2D" parent="." unique_id=1811050607]
 
-[node name="Path" parent="Node2D" unique_id=1854861914 instance=ExtResource("2_61bn5")]
+[node name="Path" parent="Node2D" unique_id=1854861914 instance=ExtResource("2_lgqtc")]
 position = Vector2(373, 322)
 
 [node name="Line2D" parent="Node2D/Path" index="0" unique_id=2134338536]
 width = 20.0
 default_color = Color(0.24313726, 0.10980392, 0, 1)
 
-[node name="Start" parent="Node2D/Path" unique_id=1095800925 instance=ExtResource("3_ge380")]
+[node name="Start" parent="Node2D/Path" unique_id=1095800925 instance=ExtResource("3_mat1j")]
 position = Vector2(0, 245)
 
 [node name="End" type="Node2D" parent="Node2D/Path" unique_id=599039825]
@@ -37,10 +37,10 @@ points = PackedVector2Array(128, 322, -50, 322)
 width = 20.0
 default_color = Color(0.24313726, 0.10980392, 0, 1)
 
-[node name="Car" parent="." unique_id=539715305 node_paths=PackedStringArray("PickUpParent") instance=ExtResource("4_wnuj7")]
+[node name="Car" parent="." unique_id=539715305 node_paths=PackedStringArray("PickUpParent") instance=ExtResource("4_hx5fc")]
 z_index = 100
 position = Vector2(373, 640)
-script = ExtResource("5_ici58")
+script = ExtResource("5_qe0ow")
 PickUpParent = NodePath("../PickUps")
 speed = 4.0
 

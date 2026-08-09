@@ -57,7 +57,6 @@ func Connect(object1, object2, index1, index2) -> void:
 
 func FoldPaper(k, n) -> void:
 	var i : int = 1;
-	var didInside : bool = false;
 	var intersection1 : Vector2 = Vector2(-100, -100);
 	var intersection2 : Vector2 = Vector2(-100, -100);
 	var intersectionIndex1 : int = -1;
@@ -78,7 +77,6 @@ func FoldPaper(k, n) -> void:
 				continue;
 			intersectionIndex2 = i;
 		if (intersectionIndex1 != -1 and intersectionIndex2 != -1):
-			didInside = !didInside;
 			AddIntersectionPoint(intersection1, intersectionIndex1);
 			AddIntersectionPoint(intersection2, intersectionIndex2 + 1);
 			intersectionIndex1 += 1;
@@ -92,7 +90,8 @@ func FoldPaper(k, n) -> void:
 			intersectionIndex1 = intersectionIndex2;
 			intersectionIndex2 = -1;
 		i += 1;
-	if ((intersectionIndex1 != -1) and (not didInside)):
+	print(get_child(-1).position, $"../../EndNode".position);
+	if ((intersectionIndex1 != -1) and (get_child(-1).global_position != $"../../EndNode".global_position)):
 		AddIntersectionPoint(intersection1, intersectionIndex1);
 		intersectionIndex1 += 1;
 		for i2 in range(intersectionIndex1, self.get_child_count()):
